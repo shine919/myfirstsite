@@ -1,0 +1,30 @@
+body{
+    background:red;
+}
+header{
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    background: linear-gradient(#16d4b5, #258a6f);
+      }
+
+ul{
+    text-align: center;
+    padding: 0px;
+    list-style: none;
+}
+
+li{
+    display: inline;
+    padding: 20px;
+    font-size: 16px;
+    line-height: 50px;
+    text-transform:uppercase;
+}
+
+a{
+    color: #ffffff;
+    text-decoration: none;
+}
+
+a:hover{
+    color:#6af68a;
+}

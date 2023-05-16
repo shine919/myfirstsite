@@ -1,0 +1,47 @@
+<!doctype html>
+{% load static %}
+<html>
+<head>
+    <meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+	<title>Phototehnika</title>
+
+</head>
+<body>
+    {% include 'MainApp/navbar.html' %}
+    <nav class="search">
+        <div class="container">
+           <ul class="search-menu">
+                    <li><a href="{% url 'MainApp:product_list' %}">Все</a></li>
+               {%for c in categories %}
+                    <li>
+                        <a href="{{ c.get_absolute_url }}"> {{ c.title }} </a>
+                    </li>
+               {% endfor %}
+           </ul>
+        </div>
+    </nav>
+    {% for post in pr %}
+    <div class="card">
+        <div class="card-name">
+            <a href="{% url 'MainApp:product' post.id  %}">{% csrf_token %}
+            <img src="{{ post.photo.url }}" alt="Photo">
+            </a>
+            <div class="content">
+                <div class="row">
+                    <div class="details">
+                        <span>{{post.title}}</span>
+                        <p>{{post.content}}</p>
+                    </div>
+                    <div class="price">{{post.price}} Руб</div>
+                </div>
+                <div class="buttons">
+                    <a href="{% url 'MainApp:product' post.id  %}" class="button">Перейти на страницу товара</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</body>
+</html>

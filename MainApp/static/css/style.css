@@ -1,0 +1,47 @@
+body {
+	position: relative;
+	font-family: 'Noto Sans', sans-serif;
+	font-size: 16px;
+	line-height: 1.4;
+	color: #000;
+	min-width: 320px;
+	overflow-x: hidden;
+	height: auto;
+    background-color:#2b2b3a;
+}
+.form-error{
+    color: red;
+}
+
+.details{
+    margin-right:20px;
+}
+
+.content .row .details span{
+    font-size:20px;
+    font-weight:600;
+    margin-bottom:10px;
+    display:block;
+}
+.content .row .details p{
+    font-size:14px;
+    font-weight:400;
+}
+.content .buttons{
+    margin-top:20px;
+}
+.content .buttons a{
+    width:100%;
+    padding:10px 0;
+    border:2px solid coral;
+    border-radius:3px;
+    font-size:17px;
+    font-weight:500;
+    cursor:pointer;
+    align-items:center;
+    display:flex;
+    justify-content: center;
+    color: black;
+    text-decoration:none;
+}
+

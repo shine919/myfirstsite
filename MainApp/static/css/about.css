@@ -1,0 +1,23 @@
+.box{
+    color:white;
+    font-weight:800;
+   font-size:27px;
+
+}
+.service h1{
+    color:coral;
+    font-weight:800;
+   font-size:27px;
+   margin-top:30px;
+    text-align:center;
+}
+.box p{
+    width:100%;
+}
+.box-main p{
+    text-align: center;
+}
+.box p{
+    font-family: sans-serif;
+    text-align: center;
+}

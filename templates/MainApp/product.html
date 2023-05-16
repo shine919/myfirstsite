@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    {% include 'MainApp/navbar.html' %}
+        <div class="container">
+                <main class="main">
+                    <div class="main-photo">
+                        <img src="{{ product.photo.url }}" alt="">
+                    </div>
+                    <div class="main-details">
+
+                        <h1 class="main-details-title">{{product.title}}</h1>
+                        <p class="main-details-text">{{product.content}}</p>
+                        <div class="main-details-price">
+                            <span class="main-details-price-price">{{product.price}} <small>RUB</small></span>
+                            <div class="main-details-price-action">
+                                <div>
+                                        <form id="form_buying_product" class="form-inline" action="{% url 'MainApp:basket_adding' %}">{% csrf_token %}
+                                            <div class="form-group">
+                                                 <input type="number" class="form-control" name="number" id="number">
+                                            </div>
+                                                <div class="form-group">
+                                                    <button type="submit" id="submit_btn" class="btn btn-warning btn-buy"
+                                                        data-product_id = "{{ product.id }}"
+                                                        data-title ="{{ product.title }}"
+                                                        data-price ="{{ product.price }}"
+                                                    >
+                                                        Купить
+                                                    </button>
+                                                </div>
+                                        </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            </div>
+    </body>
+</html>

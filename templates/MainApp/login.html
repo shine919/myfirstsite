@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href=" {% static '/css/login-site.css' %} ">
+</head>
+{% include 'MainApp/navbar.html' %}
+
+<body>
+
+
+    <form method="post" action="{% url 'MainApp:login' %}">
+        {% csrf_token %}
+        <h1>Вход</h1>
+        <div class="input-form">
+            <label class="form-label" for="id_username"></label>
+            <input type = "text" class="form-input" placeholder="Логин" id="id_username" required name="username">
+        </div>
+        <div class="input-form">
+            <label class="form-label" for="id_username"></label>
+            <input type = "password" class="form-input" placeholder="Пароль" id="id_password" required name="password">
+        </div>
+        <div class="attention">
+            <h2 class="attention-h">{{ attention }}</h2>
+        </div>
+        {% for error in login_form.non_field_errors %}
+        <div class="alert">{{ error }}</div>
+        {% endfor %}
+        <div class="input-form">
+            <input type = "submit" value="Войти">
+        </div>
+        <div class= "ref" >
+        <a href="{% url 'MainApp:register'%}">Регистрация</a>
+            </div>
+    </form>
+</body>
+</html>

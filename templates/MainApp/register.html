@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href=" {% static '/css/register.css' %} ">
+</head>
+{% include 'MainApp/navbar.html' %}
+
+<body>
+    <form method="post" action="{% url 'MainApp:register' %}">
+        {% csrf_token %}
+        <h1>Регистрация</h1>
+        {% for field in user_form %}
+        <div class="input-form">
+            {{ field.errors }}
+                        {{ field  }}
+        </div>
+        {% endfor %}
+        <div class="input-form">
+            <input type = "submit" value="Зарегистрироваться">
+        </div>
+    </form>
+</body>
+</html>

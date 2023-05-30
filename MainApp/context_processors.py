@@ -1,6 +1,5 @@
 from .models import ProductInBasket
 
-
 def getting_basket_info(request):
     session_key = request.session.session_key
     if not session_key:

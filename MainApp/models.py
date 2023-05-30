@@ -58,12 +58,17 @@ class Status(models.Model):
 
 
 class Order(models.Model):
+    Payment_Choices = (
+        ("1", "Наличными"),
+        ("2", "Картой"),
+    )
     user = models.ForeignKey(User, blank=True, null=True, default=None,on_delete=models.CASCADE)
-    total_price = models.DecimalField(max_digits=10, decimal_places=2, default=0)#total price for all products in order
+    total_price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     customer_name = models.CharField(max_length=64, blank=True, null=True, default=None)
     customer_email = models.EmailField(blank=True, null=True, default=None)
     customer_phone = models.CharField(max_length=48, blank=True, null=True, default=None)
     customer_address = models.CharField(max_length=128, blank=True, null=True, default=None)
+    customer_payment = models.CharField(max_length=128, blank=True, null=True, default=None,choices = Payment_Choices)
     comments = models.TextField(blank=True, null=True, default=None)
     status = models.ForeignKey(Status,on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True, auto_now=False)

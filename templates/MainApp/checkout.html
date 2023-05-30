@@ -19,8 +19,9 @@
                     <h5 class="text-center">Общая стоимость: {{ request.session.basket.total_amount }} руб </h5>
                             {{ request.session.basket.products }}
 
-                    <form class="form-horizontal" method="post">{% csrf_token %}
-                        <table class="table text-center">{% csrf_token %}
+                    <form class="form-horizontal" method="POST" action="{% url 'MainApp:checkout'%}" >
+                        {% csrf_token %}
+                        <table class="table text-center">
                             <thead>
                                 <tr>
                                     <th>Название товара</th>
@@ -45,10 +46,14 @@
                                             </span>
                                         </td>
                                         <td>
-                                            <span class="total-product-in-basket-amount">
+                                            <span class="total-product-in-basket-amount product-amount">
                                                 {{ product_in_basket.total_price }}
                                             </span>
-<!--                                            <a class="delete-item" href="" data-product_id="{{ product_in_basket.id }}">x{% csrf_token %}</a>-->
+
+<!--                                            <form class="form-delete-item" method="POST">-->
+<!--                                                {% csrf_token %}-->
+<!--                                                <button class="delete-item" type="submit" name="product_id" value="{{ product_in_basket.id }}">x</button>-->
+<!--                                            </form>-->
                                         </td>
                                     </tr>
                                 {% endfor %}
@@ -58,9 +63,39 @@
                         <div class="text-right">
                             <b>Сумма заказа: </b> <span id="total_order_amount">54</span>
                         </div>
-
                         <hr>
                         {% if user.is_authenticated%}
+                        <form class="form-horizontal" method="post">{% csrf_token %}
+                            <div class="form-group">
+                                <div class="col-lg-4">
+                                    <label>Имя</label>
+                                    <span class="form-error">{{ form.name.errors }}</span>
+                                    <input type="text" name="{{ form.name.html_name }}" class="form-control"
+                                        value="{{ request.POST.name }}" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-4">
+                                     <label>Телефон</label>
+                                     <span class="form-error">{{ form.phone.errors }}</span>
+                                    <input type="text" name="{{ form.phone.html_name }}" class="form-control"
+                                        value="{{ request.POST.phone }}" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-4">
+                                     <label>Адрес</label>
+                                     <span class="form-error">{{ form.address.errors }}</span>
+                                    <input type="text" name="{{ form.address.html_name }}" class="form-control"
+                                        value="{{ request.POST.address }}" required>
+                                </div>
+                            </div>
+                                <div class="form-group">
+                                <select name="payment" id="id_payment">
+                                  <option value="1">Наличными</option>
+                                  <option value="2">Картой</option>
+                                </select>
+                                </div>
                         <div class="text-right">
                             <button type="submit" class="btn btn-primary btn-lg" value="{{ request.POST.user }}" >Заказать</button>
                         </div>
@@ -70,8 +105,9 @@
                         </div>
                         {% endif %}
                     </form>
-
-                </div>
+                    </div>
+               </div>
+            </div>
              {% else %}
                 <h3 class="text-center">В Вашей корзине нет товаров</h3>
             {% endif %}

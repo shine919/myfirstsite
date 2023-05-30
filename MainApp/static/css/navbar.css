@@ -6,7 +6,7 @@
     height:100px;
     box-shadow:0 4px 10px rgba(0 ,0 ,0 , .1);
     align-content: space-around;
-    background-color: #2b2b3a;
+    background-color: white;
     flex-direction: row;
     display:flex;
     flex-wrap: wrap;
@@ -17,7 +17,7 @@
     width:100%;
     justify-content:space-between;
     align-items:center;
-    background-color: #2b2b3a;
+
 }
 .navbar-menu{
     list-style-type:none;

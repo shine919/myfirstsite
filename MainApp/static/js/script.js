@@ -1,76 +1,69 @@
 $(document).ready(function(){
     var form = $('#form_buying_product');
     console.log(form);
+
     function basketUpdating(product_id, nmb, is_delete){
         var data = {};
         data.product_id = product_id;
         data.nmb = nmb;
-
-        var csrf_token = $('#form_buying_product [name="csrfmiddlewaretoken"]').val();
+        var csrf_token = $('[name="csrfmiddlewaretoken"]').val();
         data["csrfmiddlewaretoken"] = csrf_token;
+
         if (is_delete){
             data["is_delete"] = true;
         }
 
-         var url = form.attr("action");
+        var url = form.attr("action");
 
         console.log(data)
-         $.ajax({
-             url: url,
-             type: 'POST',
-             data: data,
-             cache: true,
-             success: function (data) {
-                 console.log("OK");
-                 console.log(data.products_total_nmb);
-                 if (data.products_total_nmb || data.products_total_nmb == 0){
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: data,
+            cache: true,
+            success: function (data) {
+                console.log("OK");
+                console.log(data.products_total_nmb);
+                if (data.products_total_nmb || data.products_total_nmb == 0){
                     $('#basket_total_nmb').text("("+data.products_total_nmb+")");
-                     console.log(data.products);
-                     $('.basket-items ul').html("");
-                     $.each(data.products, function(k, v){
-                        $('.basket-items ul').append('<li>'+ v.title+', ' + v.nmb + 'шт. ' + 'по ' + v.price_per_item + 'руб  ' +
-                            '<a class="delete-item" href="" data-product_id="'+v.id+'">x</a>'+
+                    console.log(data.products);
+                    $('.basket-items ul').html("");
+                    $.each(data.products, function(k, v){
+                        $('.basket-items ul').append('<li>'+ v.name+', ' + v.nmb + 'шт. ' + 'по ' + v.price_per_item + 'грн  ' +
+                            '<a class="delete-item" href="#" data-product_id="'+v.id+'">x</a>'+
                             '</li>');
-                     });
-                 }
-
-             },
-             error: function(){
-                 console.log("error")
-             }
-         })
-
+                    });
+                }
+            },
+            error: function(){
+                console.log("error")
+            }
+        })
     }
 
-    form.on('submit', function(e){
-        e.preventDefault();
+    form.on('submit', function(event){
+        event.preventDefault();
         var nmb = $('#number').val();
-        console.log(nmb);
         var submit_btn = $('#submit_btn');
-        var product_id =  submit_btn.data("product_id");
-        var title = submit_btn.data("title");
+        var product_id = submit_btn.data("product_id");
+        var name = submit_btn.data("name");
         var price = submit_btn.data("price");
-        console.log(product_id );
-        console.log(title);
-        basketUpdating(product_id, nmb, is_delete=false)
-
+        basketUpdating(product_id, nmb, is_delete=false);
     });
-    function showingBasket(){
-        $('.basket-items').removeClass('hidden');
-    };
-     $('.basket').mouseover(function(){
-         showingBasket();
-     });
-     $(document).on('click', '.delete-item', function(e){
-         e.preventDefault();
-         product_id = $(this).data("product_id")
-         nmb = 0;
-         basketUpdating(product_id, nmb, is_delete=true)
-     });
+
+   $(document).on('click', '.delete-item', function(event){
+    event.preventDefault();
+    var product_id = $(this).data("product_id");
+    var nmb = 0;
+    var tr = $(this).closest('tr'); // получаем строку таблицы, где находится кнопка удаления
+    basketUpdating(product_id, nmb, is_delete=true);
+    tr.remove(); // удаляем строку таблицы
+    });
+
     function calculatingBasketAmount(){
         var total_order_amount = 0;
         $('.total-product-in-basket-amount').each(function() {
-            total_order_amount = total_order_amount + parseFloat($(this).text());
+            total_order_amount += parseFloat($(this).text());
         });
         console.log(total_order_amount);
         $('#total_order_amount').text(total_order_amount.toFixed(2));
@@ -89,5 +82,14 @@ $(document).ready(function(){
 
         calculatingBasketAmount();
     });
+
+    function showingBasket(){
+        $('.basket-items').removeClass('hidden');
+    };
+
+    $('.basket-container').mouseover(function(){
+        showingBasket();
+    });
+
     calculatingBasketAmount();
 });

@@ -2,9 +2,14 @@ from django import forms
 from .models import *
 from django.contrib.auth.models import User
 
-
+Payment_Choices =(
+    ("1","Наличными"),
+    ("2","Картой"),
+)
 class CheckoutContactForm(forms.Form):
     name = forms.CharField(required=True)
+    payment = forms.ChoiceField(choices = Payment_Choices,required=True)
+    address = forms.CharField(required=True)
     phone = forms.CharField(required=True)
 class LoginForm(forms.Form):
     username = forms.CharField()

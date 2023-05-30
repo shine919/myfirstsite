@@ -1,13 +1,13 @@
 .text-center{
-    color:aliceblue;
+    color:black;
 }
 .text-right{
-     color:aliceblue;
+     color:black;
 }
 .text-right a{
      color: #fff;
-    background-color: #0d6efd;
-    border-color: #0d6efd;
+    background-color: black;
+    border-color: black;
      text-decoration:none;
       padding: 0.5rem 1rem;
     font-size: 1.25rem;
@@ -25,4 +25,60 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
+}
+.payment-options{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.payment-options label{
+  margin-bottom: 10px;
+  color:black;
+}
+.payment-options text{
+  color:black;
+}
+.delivery-address-field {
+    display: flex;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    align-content: stretch;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.delivery-address-field label {
+  margin-bottom: 5px;
+  color: white;
+}
+.delivery-address-field input {
+  padding: 10px;
+  border: 2px solid #ced4da;
+  border-radius: 5px;
+}
+.delivery-address-field input:focus {
+  outline: none;
+  border-color: black;
+  box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+}
+.form-group {
+  margin-bottom: 20px;
+
+}
+label {
+  font-weight: bold;
+  color: black;
+}
+select {
+  padding: 10px;
+  border: 2px solid black;
+  border-radius: 5px;
+  width: 100%;
+  max-width: 150px;
+}
+select:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
 }

@@ -7,7 +7,7 @@ body {
 	min-width: 320px;
 	overflow-x: hidden;
 	height: auto;
-    background-color:#2b2b3a;
+    background-color:white;
 }
 .form-error{
     color: red;

@@ -74,34 +74,48 @@ def basket_adding(request):
 
     return JsonResponse(return_dict)
 def checkout(request):
+    data = request.POST
+    form = CheckoutContactForm(request.POST or None)
+    context = {'form': CheckoutContactForm()}
     session_key = request.session.session_key
     products_in_basket = ProductInBasket.objects.filter(session_key=session_key, is_active=True, order__isnull=True)
     print (products_in_basket)
     for item in products_in_basket:
         print(item.order)
+    is_delete = data.get("is_delete")
+    product_id = data.get("product_id")
+    if is_delete == 'true':
+        ProductInBasket.objects.filter(id=product_id).update(is_active=False)
+        print(is_delete)
     if request.POST:
-            data = request.POST
             user = request.user
-            order = Order.objects.create(user=user, status_id=1)
+            name = data.get("name", "3423453")
+            phone = data.get("phone")
+            payment = data.get("payment")
+            address = data.get("address")
+            order = Order.objects.create(user=user, status_id=1,customer_name=name, customer_phone=phone,customer_payment = payment,customer_address = address)
+            if form.is_valid():
+                for title, value in data.items():
+                    if title.startswith("product_in_basket_"):
+                        product_in_basket_id = title.split("product_in_basket_")[1]
+                        product_in_basket = ProductInBasket.objects.get(id=product_in_basket_id)
+                        print(type(value))
+                        product_in_basket.nmb = value
+                        product_in_basket.order = order
+                        product_in_basket.save(force_update=True)
 
-            for title, value in data.items():
-                if title.startswith("product_in_basket_"):
-                    product_in_basket_id = title.split("product_in_basket_")[1]
-                    product_in_basket = ProductInBasket.objects.get(id=product_in_basket_id)
-                    print(type(value))
+                        ProductInOrder.objects.create(product=product_in_basket.product, nmb = product_in_basket.nmb,
+                                                      price_per_item=product_in_basket.price_per_item,
+                                                      total_price = product_in_basket.total_price,
+                                                      order=order)
 
-                    product_in_basket.nmb = value
-                    product_in_basket.order = order
-                    product_in_basket.save(force_update=True)
-
-                    ProductInOrder.objects.create(product=product_in_basket.product, nmb = product_in_basket.nmb,
-                                                  price_per_item=product_in_basket.price_per_item,
-                                                  total_price = product_in_basket.total_price,
-                                                  order=order)
-
-            cart = ProductInBasket.objects.update(is_active=False)
+            if is_delete == 'true':
+                ProductInBasket.objects.filter(session_key=session_key).update(is_active=False)
+                print(is_delete)
+                print(product_id)
+                print(session_key)
             return HttpResponseRedirect(request.META['HTTP_REFERER'])
-    ProductInBasket.objects.filter(is_active=False,session_key=session_key).delete()
+    ProductInBasket.objects.filter(is_active=False,session_key=session_key).update(order=None)
     return render(request, 'MainApp/checkout.html', locals())
 
 def login_user(request):

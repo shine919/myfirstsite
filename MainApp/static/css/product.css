@@ -22,7 +22,7 @@
 .main-details-title {
     font-weight: 700;
     font-size: 44px;
-    color: white;
+    color: black;
     line-height: 66px;
     margin-bottom: 15px;
 }
@@ -32,7 +32,7 @@
     font-size: 18px;
     line-height: 27px;
     text-align: justify;
-    color: white;
+    color: black;
     margin-bottom: 36px;
 }
 
@@ -62,6 +62,7 @@
     font-weight: 700;
     font-size: 34px;
     line-height: 28px;
+    color:black;
 }
 
 .main-details-price-price small {
